@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { toastr } from 'react-redux-toastr';
 
 import { getPropertyInfo } from '../redux/actions/propertyActions';
+import { pushOrder } from '../redux/actions/orderActions';
 
 import Menu from '../pages/MenuComponent';
 import Orders from '../pages/OrdersComponent';
 import ItemDetails from '../pages/ItemDetailsComponent';
 import NavBar from './NavBarComponent';
 import RobotPanel from './RobotPanelComponent';
-import Loading from './loading/LoadingComponent';
+import Loading from './LoadingComponent';
 
+const io = require("socket.io-client");
+const connectionUrl = "ws://waiterbot-api.us-east-1.elasticbeanstalk.com";
 
 class Layout extends Component {
 
@@ -18,6 +22,37 @@ class Layout extends Component {
         super(props)
 
         this.props.dispatchGetPropertyInfo();
+    }
+
+    componentDidMount() {
+        const socket = io(connectionUrl, {
+            // autoConnect : false,
+            transports: ["polling"],
+            query: {
+                token: localStorage.getItem('token')
+            },
+        });
+
+        socket.on("connect", msg => {
+            console.log("successfully connected to ws!");
+        });
+
+        socket.on('join', function (data) { console.log(data); });
+        socket.on('error', function (data) { console.log(data); });
+
+        socket.on("private", (data) => {
+            console.log("[PRIVATE]  :", data);
+        });
+
+        socket.on("newOrder", (data) => {
+            this.props.dispatchPushOrder(data);
+            toastr.info("New Order Recieved");
+            console.log("[NEW ORDER ]  :", data);
+        });
+
+        socket.on("orderStateChange", (data) => {
+            console.log("[ORDER STATE CHANGE ]  :", data);
+        });
     }
 
     render() {
@@ -55,7 +90,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    dispatchGetPropertyInfo: () => dispatch(getPropertyInfo())
+    dispatchGetPropertyInfo: () => dispatch(getPropertyInfo()),
+    dispatchPushOrder: (data) => dispatch(pushOrder(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

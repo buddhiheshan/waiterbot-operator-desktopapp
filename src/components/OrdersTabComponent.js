@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Accordion, Card, Tabs, Tab, Button, ListGroup } from 'react-bootstrap';
+import { Accordion, Card, Tabs, Tab, Button, ListGroup, Media } from 'react-bootstrap';
 
 import { editOrderStatus } from '../redux/actions/orderActions'
 
@@ -8,11 +8,9 @@ class RenderOrders extends Component {
 
     handleClick(orderID, nextStatus) {
         if (nextStatus === "Accept") {
-            console.log("Preparing")
             this.props.props.dispatchEditOrderStatus(orderID, "Preparing")
         }
         if (nextStatus === "Deploy Robot") {
-            console.log("Delivering")
             this.props.props.dispatchEditOrderStatus(orderID, "Delivering")
         }
     }
@@ -57,19 +55,30 @@ class RenderOrderItems extends Component {
 
     render() {
         let filtered = [];
-        this.props.orderedItems.forEach((ordered, i) => {
-            const toBeAdded = this.props.items.filter((item, j) => {
+        this.props.orderedItems.forEach((ordered) => {
+            const toBeAdded = this.props.items.filter((item) => {
                 return (item._id === ordered.item)
             })
             filtered = [...filtered, ...toBeAdded];
         });
-
         return (
             <ListGroup>
                 {
                     filtered.map((order, i) => {
                         return (
-                            <ListGroup.Item key={i}>{order.name}</ListGroup.Item>
+                            <ListGroup.Item key={i}>
+                                <Media>
+                                    <img
+                                        width={64}
+                                        height={64}
+                                        className="mr-3"
+                                        src={order.imgUrl}                                        alt="Generic placeholder"
+                                    />
+                                    <Media.Body>
+                                        <h5>{order.name}</h5>
+                                    </Media.Body>
+                                </Media>
+                            </ListGroup.Item>
                         )
                     })
                 }

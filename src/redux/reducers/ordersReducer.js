@@ -1,4 +1,4 @@
-import { SET_PENDING_ORDERS, SET_PREPARING_ORDERS, SET_DELIVERED_ORDERS, SET_DELIVERING_ORDERS, SET_CANCELLED_ORDERS, CHANGE_ORDER_STATE } from '../ActionTypes';
+import { SET_PENDING_ORDERS, SET_PREPARING_ORDERS, SET_DELIVERED_ORDERS, SET_DELIVERING_ORDERS, SET_CANCELLED_ORDERS, CHANGE_ORDER_STATE, PUSH_ORDER } from '../ActionTypes';
 
 const initialState = {
     orders: {
@@ -128,6 +128,18 @@ export default function ordersReducer(state = initialState, action) {
                 default:
                     return state;
             }
+        
+            case PUSH_ORDER:
+                return{
+                    ...state,
+                    orders: {
+                        ...state.orders,
+                        pending: {
+                            ...state.orders.pending,
+                            orders: [...state.orders.pending.orders, action.payload]
+                        }
+                    }
+                }
 
         default:
             return state;

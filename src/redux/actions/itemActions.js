@@ -1,8 +1,7 @@
-import { SET_ITEMS,SET_SELECTED_ITEM } from '../ActionTypes';
+import { SET_ITEMS,SET_SELECTED_ITEM, TOGGLE_ITEM_STATUS } from '../ActionTypes';
 import axios from 'axios'
 
 export const getItems = (propertyID) => async dispatch => {
-    console.log(propertyID);
     try {
         const response = await axios.get('properties/' + propertyID + '/items')
         dispatch({
@@ -21,12 +20,26 @@ export const getItemDetail = (itemID) => async dispatch => {
             type: SET_SELECTED_ITEM,
             payload: null})
         const response = await axios.get('items/' + itemID)
-        console.log(response);
         dispatch({
             type: SET_SELECTED_ITEM,
             payload: response.data.data
         })
     } catch (e) {
         console.log('somthing bad happned fetching item' + itemID)
+    }
+}
+
+export const toggleItemStatus = (itemID, availalability) => async dispatch => {
+
+    try {
+        const response = await axios.patch('items/' + itemID + '/setAvailability', { "available" : availalability})
+        
+        const payload = response.data.data.available ? "available" : "sold-out"
+        dispatch({
+            type: TOGGLE_ITEM_STATUS,
+            payload: payload
+        })
+    } catch (e) {
+        console.log('somthing bad happned toggling item status of' + itemID)
     }
 }

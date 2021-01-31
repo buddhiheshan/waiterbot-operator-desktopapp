@@ -5,7 +5,6 @@ const initialState = {
 }
 
 const userInfo = localStorage.getItem('token');
-console.log(userInfo)
 
 export default function userReducers(state = userInfo ? userInfo : initialState, action) {
 

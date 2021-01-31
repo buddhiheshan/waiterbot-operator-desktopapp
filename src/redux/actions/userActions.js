@@ -10,19 +10,17 @@ export const login = (mobile, password) => async dispatch => {
 
     try {
         const response = await axios.post('auth/operator_login', data);
-        console.log(response);
         localStorage.setItem('firstname', response.data.data.first_name);
         localStorage.setItem('lastname', response.data.data.last_name);
         localStorage.setItem('token', response.data.token);
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
-        console.log();
         dispatch({
             type: SET_USER,
             payload: response.data.token
         })
 
     } catch (e) {
-
+        alert('Login failed');
         console.log('somthing bad happned with login')
     }
 }

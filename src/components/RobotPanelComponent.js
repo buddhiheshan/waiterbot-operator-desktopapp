@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 
 import { getRobots } from '../redux/actions/robotActions';
 
-import Loading from '../component/loading/LoadingComponent';
+import Loading from './LoadingComponent';
 
 import { Media, } from 'reactstrap';
 
 
 function RenderRobots({ robots }) {
-    console.log(robots)
+
     return (
         <Media list className=" p-0 ">
             {
@@ -35,7 +35,7 @@ function RenderRobots({ robots }) {
 class RobotPanel extends Component {
 
     componentDidMount() {
-        console.log(this.props.property.id);
+
         this.props.dispatchGetRobots(this.props.property.id)
     }
     render() {

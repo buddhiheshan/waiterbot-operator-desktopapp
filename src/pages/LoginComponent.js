@@ -31,7 +31,7 @@ class Login extends Component {
                     <FormGroup>
                         <Label htmlFor="password">Password</Label>
                         <Input
-                            // type="password"
+                            type="password"
                             id="password"
                             name="password"
                             innerRef={(input) => this.password = input} />

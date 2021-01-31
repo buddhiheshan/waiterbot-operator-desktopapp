@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { CHANGE_ORDER_STATE } from '../ActionTypes';
+import { CHANGE_ORDER_STATE, PUSH_ORDER } from '../ActionTypes';
 export const getOrders = (propertyID, status, actionType) => async dispatch => {
 
     try {
@@ -28,5 +28,16 @@ export const editOrderStatus = (orderId, nextStatus) => async dispatch => {
         })
     } catch (e) {
         console.log('somthing bad happned fetching items')
+    }
+}
+
+export const pushOrder = (order) => async dispatch => {
+    try{
+        dispatch( {
+            type: PUSH_ORDER,
+            payload: order
+        })
+    } catch(e) {
+        console.log('somthing bad happned when pushing order')
     }
 }

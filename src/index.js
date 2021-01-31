@@ -4,9 +4,11 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from './redux/configureStore';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import './index.css';
 import App from './App';
 import axios from 'axios';
+import ReduxToastr from 'react-redux-toastr'
 
 const store = configureStore();
 
@@ -19,5 +21,14 @@ ReactDOM.render(
     <BrowserRouter>
       <App />
     </BrowserRouter>
+    <ReduxToastr
+      timeOut={6000}
+      newestOnTop={false}
+      position="bottom-right"
+      getState={(state) => state.toastr} // This is the default
+      transitionIn="fadeIn"
+      transitionOut="fadeOut"
+      progressBar
+      closeOnToastrClick/>
   </Provider>
   , document.getElementById('root'));

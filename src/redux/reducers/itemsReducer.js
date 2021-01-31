@@ -1,4 +1,4 @@
-import { SET_ITEMS, SET_SELECTED_ITEM } from '../ActionTypes';
+import { SET_ITEMS, SET_SELECTED_ITEM, TOGGLE_ITEM_STATUS } from '../ActionTypes';
 
 const initialState = {
     items: [],
@@ -18,11 +18,19 @@ export default function itemsReducer(state = initialState, action) {
             };
 
         case SET_SELECTED_ITEM:
-            return{
+            return {
                 ...state,
-                selectedItem : action.payload
+                selectedItem: action.payload
             }
-        
+
+        case TOGGLE_ITEM_STATUS:
+            return {
+                ...state,
+                selectedItem: {
+                    ...state.selectedItem,
+                    status: action.payload
+                }
+            }
 
         default:
             return state;

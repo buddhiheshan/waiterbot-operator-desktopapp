@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import {reducer as toastrReducer} from 'react-redux-toastr'
 
 import itemReducer from './itemsReducer'
 import robotsReducer from './robotsReducer';
@@ -14,6 +15,7 @@ export default combineReducers({
   user: userReducers,
   property: propertyReducer,
   orders: orderReducers,
+  toastr: toastrReducer
   // reviews: reviewsReducer,
   // tables: tablesReducer
 });

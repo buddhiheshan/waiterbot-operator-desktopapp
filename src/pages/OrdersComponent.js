@@ -4,12 +4,11 @@ import { connect } from 'react-redux';
 import { getOrders } from '../redux/actions/orderActions';
 import { getItems } from '../redux/actions/itemActions';
 
-import Loading from '../component/loading/LoadingComponent';
+import Loading from '../components/LoadingComponent';
 
 import { Jumbotron } from 'react-bootstrap';
-// import OrdersTab from '../component/OrdersTabComponent';
 
-import OrdersTab from '../component/OrdersTabComponents1';
+import OrdersTab from '../components/OrdersTabComponent';
 
 class Menu extends Component {
 
@@ -24,19 +23,12 @@ class Menu extends Component {
     }
 
     render() {
-        if (this.props.orders.isLoading) {
-            return (
-                <Loading />
-            )
-        }
-        else {
-            return (
-                <React.Fragment>
-                    <Jumbotron>Oders</Jumbotron>
-                    <OrdersTab />
-                </React.Fragment>
-            )
-        }
+        return (
+            <React.Fragment>
+                <Jumbotron fluid className="Jumbotron">Orders</Jumbotron>
+                {this.props.orders.isLoading ? <Loading /> : <OrdersTab />}
+            </React.Fragment>
+        )
     }
 }
 

@@ -3,23 +3,15 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Login from './pages/LoginComponent';
-import Layout from './component/LayoutComponent';
+import Layout from './components/LayoutComponent';
 
 import '../src/App.css';
 
 
 
 class App extends Component {
-  componentDidMount() {
-    console.log("mounted app");
-  }
-  componentDidUpdate() {
-    console.log("update app");
-  }
-
 
   render() {
-    console.log("render app")
     return (
       <div className="App">
         {

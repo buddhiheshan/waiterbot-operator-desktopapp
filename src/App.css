@@ -21,6 +21,7 @@
   color: black;
   height: 100vh;
   overflow-y: scroll;
+  padding: 0px;
 }
 
 .Navbar {
@@ -61,5 +62,13 @@
   text-align: left;
   padding: 5px 20px 5px 20px;
   margin: 2px;
+
+}
+
+.Jumbotron{
+  color: white;
+  background-color: black;
+  padding-left: 30px;
+  font-size: 3em;
 
 }

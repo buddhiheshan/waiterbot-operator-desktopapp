@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Jumbotron, Breadcrumb, BreadcrumbItem, Button } from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
-// import Loading from './LoadingComponent';
+import Loading from '../components/LoadingComponent';
 import { connect } from 'react-redux'
-import { getItemDetail } from '../redux/actions/itemActions';
+import { getItemDetail, toggleItemStatus } from '../redux/actions/itemActions';
 // import { getReviews } from '../store/actions/reviewActions';
 
 function RenderItemDetails({ item }) {
@@ -88,8 +88,7 @@ function RenderPortions({ portions }) {
 }
 
 function RenderReviews({ reviews }) {
-    console.log("revies");
-    console.log(reviews);
+
     // if(reviews.isLoading){
     //     return (
     //         <div className="container">
@@ -134,22 +133,24 @@ class ItemDetail extends Component {
         };
 
         this.props.dispatchGetItemDetail(this.state.itemID)
+        this.toggleStatus = this.toggleStatus.bind(this)
 
     };
 
-    // componentDidMount() {
-    //     this.props.getReviews(this.props.item._id)
-    // }
+    toggleStatus() {
+        if (this.props.items.selectedItem.status === "available")
+            this.props.dispatchToggleItemStatus(this.props.items.selectedItem._id, false)
+        if (this.props.items.selectedItem.status === "sold-out")
+            this.props.dispatchToggleItemStatus(this.props.items.selectedItem._id, true)
+    }
 
     render() {
-        console.log("itemdetail rendered");
-
 
         if (!this.props.items.selectedItem) {
             return (
                 <div className="container">
                     <div className="row">
-                        loading
+                        <Loading />
                     </div>
                 </div>
             );
@@ -157,21 +158,21 @@ class ItemDetail extends Component {
         // else
         return (
             <div>
-                <Jumbotron>
+                <Jumbotron fluid className="Jumbotron">
                     <div className="container-fluid">
                         <div className="row row-header">
                             <div className="col-12 col-sm-6">
                                 <h1>{this.props.items.selectedItem.name}</h1>
                             </div>
                             <div className="col-12 col-sm-6">
-                                <Button className="btn-lg mr-3" onClick={this.toggleModal}>Change Item Status</Button>
+                                <Button className="btn-lg mr-3" onClick={this.toggleStatus}>Change Item Status</Button>
                             </div>
                         </div>
                     </div>
                 </Jumbotron>
                 <div className="container-fluid">
                     <div className='row'>
-                        <Breadcrumb className='ml-5'>
+                        <Breadcrumb className='ml-3'>
                             <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
                             <BreadcrumbItem active>{this.props.items.selectedItem.name}</BreadcrumbItem>
                         </Breadcrumb>
@@ -196,7 +197,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    dispatchGetItemDetail: (itemID) => dispatch(getItemDetail(itemID))
+    dispatchGetItemDetail: (itemID) => dispatch(getItemDetail(itemID)),
+    dispatchToggleItemStatus: (itemID, availability) => dispatch(toggleItemStatus(itemID, availability))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ItemDetail));

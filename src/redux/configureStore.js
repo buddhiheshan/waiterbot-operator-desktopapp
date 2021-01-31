@@ -8,6 +8,5 @@ import rootReducer from './reducers/index';
 
 
 export default function configureStore(initialState){
-    console.log("Configuring Redux Store");
     return createStore(rootReducer,initialState, composeWithDevTools(applyMiddleware(thunk)))
 };

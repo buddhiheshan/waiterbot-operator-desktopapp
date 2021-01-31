@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { getItems } from '../redux/actions/itemActions';
 
-import Loading from '../component/loading/LoadingComponent';
+import Loading from '../components/LoadingComponent';
 
 import { Jumbotron } from 'react-bootstrap';
 import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
@@ -25,7 +25,6 @@ function RenderMenuItem({ item }) {
 class Menu extends Component {
 
     componentDidMount() {
-        console.log(this.props.property.id);
         this.props.dispatchGetItems(this.props.property.id)
     }
 
@@ -38,21 +37,14 @@ class Menu extends Component {
             )
         });
 
-        if (this.props.items.isLoading) {
-            return (
-                <Loading />
-            )
-        }
-        else {
-            return (
-                <React.Fragment>
-                    <Jumbotron>Menu</Jumbotron>
-                    <div className="row m-0">
+        return (
+            <React.Fragment>
+                <Jumbotron fluid className="Jumbotron">Menu</Jumbotron>
+                {this.props.items.isLoading ? <Loading /> : <div className="row">
                         {MenuItems}
-                    </div>
-                </React.Fragment>
-            )
-        }
+                    </div>}
+            </React.Fragment>
+        )
     }
 }
 
