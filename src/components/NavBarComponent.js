@@ -23,7 +23,7 @@ class NavBar extends Component {
 
     render() {
         return (
-            <div className="col-md-1 Navbar">
+            <React.Fragment>
                 <Nav vertical >
                     <div>
                         <Image fluid roundedCircle src='assets/images/operator_image.png' alt='Operator' />
@@ -42,7 +42,9 @@ class NavBar extends Component {
                 <Link to="/">
                     <Button onClick={this.handleLogout}><span className="fa fa-sign-out fa-lg Logout"></span> Logout</Button>
                 </Link>
-            </div>
+
+            </React.Fragment>
+
         )
     }
 }

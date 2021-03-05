@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { CHANGE_ORDER_STATE, PUSH_ORDER } from '../ActionTypes';
+import { CHANGE_ORDER_STATE, PUSH_ORDER } from '../actionTypes';
 export const getOrders = (propertyID, status, actionType) => async dispatch => {
 
     try {

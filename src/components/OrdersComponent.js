@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 
+import { Jumbotron, Container, Row } from 'react-bootstrap';
+
+import Loading from '../components/LoadingComponent';
+import OrdersTab from '../components/OrdersTabComponent';
+
 import { getOrders } from '../redux/actions/orderActions';
 import { getItems } from '../redux/actions/itemActions';
 
-import Loading from '../components/LoadingComponent';
-
-import { Jumbotron } from 'react-bootstrap';
-
-import OrdersTab from '../components/OrdersTabComponent';
-
-class Menu extends Component {
+class Orders extends Component {
 
     componentDidMount() {
         console.log(this.props.property.id);
@@ -25,8 +24,13 @@ class Menu extends Component {
     render() {
         return (
             <React.Fragment>
-                <Jumbotron fluid className="Jumbotron">Orders</Jumbotron>
-                {this.props.orders.isLoading ? <Loading /> : <OrdersTab />}
+                <Jumbotron fluid className="Jumbotron-MainPanel">Orders</Jumbotron>
+                {this.props.orders.isLoading ? <Loading /> :
+                    <Container>
+                        <Row>
+                            <OrdersTab />
+                        </Row>
+                    </Container>}
             </React.Fragment>
         )
     }
@@ -44,4 +48,4 @@ const mapDispatchToProps = dispatch => ({
     dispatchGetItems: (propertyID) => dispatch(getItems(propertyID))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Menu);
+export default connect(mapStateToProps, mapDispatchToProps)(Orders);

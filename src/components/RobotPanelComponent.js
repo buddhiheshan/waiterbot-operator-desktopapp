@@ -5,30 +5,31 @@ import { getRobots } from '../redux/actions/robotActions';
 
 import Loading from './LoadingComponent';
 
-import { Media, } from 'reactstrap';
+import { Media, Container, Jumbotron, ListGroup } from 'react-bootstrap';
 
 
 function RenderRobots({ robots }) {
 
     return (
-        <Media list className=" p-0 ">
+        <ListGroup>
             {
                 robots.map((robot, i) => {
                     return (
-                        <Media tag="li" key={i} className="Robot-media">
-                            <Media body>
-                                <Media heading>
-                                    Nickname: {robot.nickname}<br />
-                                </Media>
-                                Status: {robot.status}<br />
-                                ID: {robot._id}
+                        <ListGroup.Item key={i} className="Robot-media">
+                            <Media >
+                                <Media.Body>
+                                    <h5>Nickname: {robot.nickname}</h5>
+                                    <ListGroup>
+                                        <ListGroup.Item className="RobotDetail">Status: {robot.status}</ListGroup.Item>
+                                        <ListGroup.Item className="RobotDetail">ID: {robot._id}</ListGroup.Item>
+                                    </ListGroup>
+                                </Media.Body>
                             </Media>
-
-                        </Media>
+                        </ListGroup.Item>
                     )
                 })
             }
-        </Media>
+        </ListGroup>
     );
 };
 
@@ -39,28 +40,15 @@ class RobotPanel extends Component {
         this.props.dispatchGetRobots(this.props.property.id)
     }
     render() {
-        if (this.props.robots.isLoading) {
-            return (
-                <div className='col-md-4 Robot-panel'>
-                    <Loading />
-                </div>
-            )
-        }
-        else {
-            return (
-                <div className='col-md-4 Robot-panel'>
-                    <div className="container-fluid">
-                        <div className="row">
-                            <h2>Robots</h2>
-                        </div>
-                        {/* <div className=""> */}
+        return (
+            <React.Fragment>
+                <Jumbotron fluid className="Jumbotron-RobotPanel">WaiterBots</Jumbotron>
+                {this.props.robots.isLoading ? <Loading /> :
+                    <Container>
                         <RenderRobots robots={this.props.robots.robots} />
-                        {/* </div> */}
-                    </div>
-                </div>
-            )
-        }
-
+                    </Container>}
+            </React.Fragment>
+        )
     }
 }
 

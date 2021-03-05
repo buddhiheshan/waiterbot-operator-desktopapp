@@ -1,4 +1,4 @@
-import { SET_USER, RESET_USER } from '../ActionTypes';
+import { SET_USER, RESET_USER } from '../actionTypes';
 import axios from 'axios';
 
 export const login = (mobile, password) => async dispatch => {

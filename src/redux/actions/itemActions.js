@@ -1,4 +1,4 @@
-import { SET_ITEMS,SET_SELECTED_ITEM, TOGGLE_ITEM_STATUS } from '../ActionTypes';
+import { SET_ITEMS,SET_SELECTED_ITEM, TOGGLE_ITEM_STATUS } from '../actionTypes';
 import axios from 'axios'
 
 export const getItems = (propertyID) => async dispatch => {

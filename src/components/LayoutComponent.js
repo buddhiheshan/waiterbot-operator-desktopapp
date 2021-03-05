@@ -1,17 +1,20 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import { toastr } from 'react-redux-toastr';
+import { Col, Container, Row } from 'react-bootstrap';
 
-import { getPropertyInfo } from '../redux/actions/propertyActions';
-import { pushOrder } from '../redux/actions/orderActions';
 
-import Menu from '../pages/MenuComponent';
-import Orders from '../pages/OrdersComponent';
-import ItemDetails from '../pages/ItemDetailsComponent';
+import Menu from './MenuComponent';
+import Orders from './OrdersComponent';
+import ItemDetails from './ItemDetailsComponent';
 import NavBar from './NavBarComponent';
 import RobotPanel from './RobotPanelComponent';
 import Loading from './LoadingComponent';
+
+import { getPropertyInfo } from '../redux/actions/propertyActions';
+import { pushOrder } from '../redux/actions/orderActions';
 
 const io = require("socket.io-client");
 const connectionUrl = "ws://waiterbot-api.us-east-1.elasticbeanstalk.com";
@@ -64,20 +67,24 @@ class Layout extends Component {
         }
         else {
             return (
-                <div className="container-fluid">
-                    <div className="row">
-                        <NavBar />
-                        <div className="container-fluid col-7 Main-panel">
+                <Container fluid className="Layout blur">
+                    <Row className="m-0">
+                        <Col className="col-md-1 Navbar">
+                            <NavBar />
+                        </Col>
+                        <Col className="col-8 Main-panel">
                             <Switch>
                                 <Route exact path="/orders"><Orders /></Route>
                                 <Route exact path="/menu"><Menu /></Route>
                                 <Route exact path="/menu/:itemID"><ItemDetails /></Route>
                                 <Redirect to='/orders' />
                             </Switch>
-                        </div>
-                        <RobotPanel />
-                    </div >
-                </div >
+                        </Col>
+                        <Col className=" Robot-panel">
+                            <RobotPanel />
+                        </Col>
+                    </Row >
+                </Container>
             )
         }
     }

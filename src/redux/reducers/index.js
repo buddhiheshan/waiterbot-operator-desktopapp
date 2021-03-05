@@ -6,7 +6,7 @@ import robotsReducer from './robotsReducer';
 import userReducers from './userReducer';
 import propertyReducer from './propertyReducer';
 import orderReducers from './ordersReducer';
-// import reviewsReducer from './reviewsReducer';
+import reviewsReducer from './reviewsReducer';
 // import tablesReducer from './tablesReducer';
 
 export default combineReducers({
@@ -15,7 +15,7 @@ export default combineReducers({
   user: userReducers,
   property: propertyReducer,
   orders: orderReducers,
-  toastr: toastrReducer
-  // reviews: reviewsReducer,
+  toastr: toastrReducer,
+  reviews: reviewsReducer,
   // tables: tablesReducer
 });

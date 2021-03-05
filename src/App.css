@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;700&display=swap');
+
+body {
+  margin: 0;
+  color: white;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.row{
+  margin:0;
+}
+
 .Login {
   position: absolute;
   top: 50%;
@@ -11,33 +23,58 @@
   border-radius: 10px;
 }
 
-.App {
-  background: black;
-  color: white;
+.Layout {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("images/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0;
 }
 
 .Main-panel {
-  background: white;
-  color: black;
   height: 100vh;
+  padding: 0;
+  border-right: 3px solid;
   overflow-y: scroll;
-  padding: 0px;
 }
 
 .Navbar {
-  background: #000;
-  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
   height: 100vh;
   padding-top: 50px;
   text-align: center;
 }
 
 .Robot-panel {
-  background: #000;
-  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
   height: 100vh;
+  padding: 0;
   text-align: center;
   overflow-y: scroll;
+}
+
+.Food-item {
+  padding: 5px;
+}
+
+.Item-img {
+  height: 150px;
+}
+
+.Item-overlay {
+  position: relative;
+  padding: 0px;
+}
+
+.Item-title {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.3em;
+  background-color: #000;
+  color: #fff;
+  opacity: 0.7;
+  margin: 0;
 }
 
 .Username {
@@ -54,21 +91,56 @@
   color: rgb(218, 218, 66);
 }
 
-
-
-.Robot-media{
-  background-color: bisque;
-  color: black;
-  text-align: left;
-  padding: 5px 20px 5px 20px;
-  margin: 2px;
-
+.list-group-item{
+  background-color: unset;
+  border: unset;
 }
 
-.Jumbotron{
+.Robot-media{
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid;
+  padding: 5px 10px 5px 10px;
+}
+
+.Jumbotron-MainPanel{
   color: white;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.6);
   padding-left: 30px;
   font-size: 3em;
+}
 
+.Jumbotron-RobotPanel {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  font-size: 2.5em;
+  padding: 10px 0px 10px 0px;
+}
+
+.RobotDetail {
+  padding: 5px 20px;
+}
+
+.ItemDetails {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 1px solid;
+  width: 100%;
+  align-items: center;
+  margin: 0px;
+  margin-bottom: 15px;
+  padding:20px;
+  border-radius: 10px;
+}
+
+.Reviews {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 1px solid;
+  width: 100%;
+  align-items: center;
+  margin: 0;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.ReviewsHeader {
+  font-size: 1.5em;
 }

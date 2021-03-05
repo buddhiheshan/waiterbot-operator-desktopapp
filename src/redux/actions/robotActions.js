@@ -1,4 +1,4 @@
-import { SET_ROBOTS } from '../ActionTypes';
+import { SET_ROBOTS } from '../actionTypes';
 import axios from 'axios'
 
 export const getRobots = (propertyID) => async dispatch => {

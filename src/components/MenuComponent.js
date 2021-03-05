@@ -6,17 +6,17 @@ import { getItems } from '../redux/actions/itemActions';
 
 import Loading from '../components/LoadingComponent';
 
-import { Jumbotron } from 'react-bootstrap';
-import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
+import { Jumbotron, Container, Row, Col, Card } from 'react-bootstrap';
+
 
 function RenderMenuItem({ item }) {
     return (
         <Card>
             <Link to={`/menu/${item._id}`}>
-                <CardImg className="Item-img" src={item.imgUrl} alt={item.name} />
-                <CardImgOverlay>
-                    <CardTitle>{item.name}</CardTitle>
-                </CardImgOverlay>
+                <Card.Img className="Item-img" src={item.imgUrl} alt={item.name} />
+                <Card.ImgOverlay className="Item-overlay">
+                    <Card.Title className="Item-title">{item.name}</Card.Title>
+                </Card.ImgOverlay>
             </Link>
         </Card>
     );
@@ -31,18 +31,21 @@ class Menu extends Component {
     render() {
         const MenuItems = this.props.items.items.map((item) => {
             return (
-                <div key={item._id} className="col-6 col-md-3 Food-item">
+                <Col sm={6} md={3} key={item._id} className="Food-item">
                     <RenderMenuItem item={item} />
-                </div>
+                </Col>
             )
         });
 
         return (
             <React.Fragment>
-                <Jumbotron fluid className="Jumbotron">Menu</Jumbotron>
-                {this.props.items.isLoading ? <Loading /> : <div className="row">
-                        {MenuItems}
-                    </div>}
+                <Jumbotron fluid className="Jumbotron-MainPanel">Menu</Jumbotron>
+                {this.props.items.isLoading ? <Loading /> :
+                    <Container>
+                        <Row>
+                            {MenuItems}
+                        </Row>
+                    </Container>}
             </React.Fragment>
         )
     }

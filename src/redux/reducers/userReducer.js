@@ -1,4 +1,4 @@
-import { SET_USER, RESET_USER } from '../ActionTypes'
+import { SET_USER, RESET_USER } from '../actionTypes'
 
 const initialState = {
     token: null,

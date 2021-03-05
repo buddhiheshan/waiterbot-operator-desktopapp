@@ -18,6 +18,7 @@ export const PUSH_ORDER = 'PUSH_ORDER';
 
 
 export const SET_REVIEWS ='SET_REVIEWS';
+export const RESET_REVIEWS = 'RESET_REVIEWS';
 
 export const SET_TABLES = 'SET_TABLES';
 

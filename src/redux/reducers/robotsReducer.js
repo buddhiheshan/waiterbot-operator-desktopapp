@@ -1,4 +1,4 @@
-import { SET_ROBOTS } from '../ActionTypes';
+import { SET_ROBOTS } from '../actionTypes';
 
 const initialState = {
     robots: [],

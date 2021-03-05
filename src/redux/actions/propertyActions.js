@@ -1,4 +1,4 @@
-import { SET_PROPERTY } from '../ActionTypes';
+import { SET_PROPERTY } from '../actionTypes';
 import axios from 'axios';
 
 export const getPropertyInfo = () => async dispatch => {

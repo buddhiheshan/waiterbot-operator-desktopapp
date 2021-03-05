@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Login from './pages/LoginComponent';
+import Login from './components/LoginComponent';
 import Layout from './components/LayoutComponent';
 
 import '../src/App.css';
@@ -13,7 +13,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <React.Fragment>
         {
         !localStorage.getItem('token') ?
           (<Switch>
@@ -24,8 +24,7 @@ class App extends Component {
           </Switch>) :
           <Layout />
         }
-      </div >
-
+      </React.Fragment >
     );
   }
 }
