@@ -7,7 +7,7 @@ export const getPropertyInfo = () => async dispatch => {
         const response = await axios.get('properties');
         dispatch({
             type: SET_PROPERTY,
-            payload: response.data.data
+            payload: response.data.data[0]
         })
 
     } catch (e) {

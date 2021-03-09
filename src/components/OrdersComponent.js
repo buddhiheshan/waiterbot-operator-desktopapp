@@ -12,7 +12,7 @@ import { getItems } from '../redux/actions/itemActions';
 class Orders extends Component {
 
     componentDidMount() {
-        console.log(this.props.property.id);
+        // console.log(this.props.property.id);
         this.props.dispatchGetItems(this.props.property.id)
         this.props.dispatchGetOrders(this.props.property.id, "Pending", "SET_PENDING_ORDERS")
         this.props.dispatchGetOrders(this.props.property.id, "Preparing", "SET_PREPARING_ORDERS")
