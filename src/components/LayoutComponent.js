@@ -48,10 +48,9 @@ class Layout extends Component {
         });
 
         socket.on("newOrder", (data) => {
+            this.props.dispatchPushOrder(data);
+            toastr.info("New Order Recieved");
             console.log("[NEW ORDER ]  :", data);
-            // this.props.dispatchPushOrder(data);
-            // toastr.info("New Order Recieved");
-            // console.log("[NEW ORDER ]  :", data);
         });
 
         socket.on("orderStateChange", (data) => {
