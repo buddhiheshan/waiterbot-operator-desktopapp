@@ -17,7 +17,7 @@ import { getPropertyInfo } from '../redux/actions/propertyActions';
 import { pushOrder } from '../redux/actions/orderActions';
 
 const io = require("socket.io-client");
-const connectionUrl = "ws://waiterbot-api.us-east-1.elasticbeanstalk.com";
+const connectionUrl = "ws://waiterbot-api.herokuapp.com";
 
 class Layout extends Component {
 
@@ -48,9 +48,10 @@ class Layout extends Component {
         });
 
         socket.on("newOrder", (data) => {
-            this.props.dispatchPushOrder(data);
-            toastr.info("New Order Recieved");
             console.log("[NEW ORDER ]  :", data);
+            // this.props.dispatchPushOrder(data);
+            // toastr.info("New Order Recieved");
+            // console.log("[NEW ORDER ]  :", data);
         });
 
         socket.on("orderStateChange", (data) => {

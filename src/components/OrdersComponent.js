@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 
-import { Jumbotron, Container, Row } from 'react-bootstrap';
+import { Jumbotron, Container } from 'react-bootstrap';
 
 import Loading from '../components/LoadingComponent';
 import OrdersTab from '../components/OrdersTabComponent';
@@ -27,9 +27,9 @@ class Orders extends Component {
                 <Jumbotron fluid className="Jumbotron-MainPanel">Orders</Jumbotron>
                 {this.props.orders.isLoading ? <Loading /> :
                     <Container>
-                        <Row>
+                        {/* <Row> */}
                             <OrdersTab />
-                        </Row>
+                        {/* </Row> */}
                     </Container>}
             </React.Fragment>
         )

@@ -4,6 +4,9 @@ body {
   margin: 0;
   color: white;
   font-family: 'Ubuntu', sans-serif;
+  background-image: url("images/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .row{
@@ -40,7 +43,7 @@ body {
 .Navbar {
   background-color: rgba(0, 0, 0, 0.6);
   height: 100vh;
-  padding-top: 50px;
+  padding: 50px 5px 50px 5px;
   text-align: center;
 }
 
@@ -143,4 +146,38 @@ body {
 
 .ReviewsHeader {
   font-size: 1.5em;
+}
+
+.OrdersTab {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+a {
+  color: white;
+}
+
+.active {
+  font-weight: bold;
+}
+
+.OrderItem {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.breadcrumb {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Loading Styling */
+
+.Spinner {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+  background-size: 100%;
 }

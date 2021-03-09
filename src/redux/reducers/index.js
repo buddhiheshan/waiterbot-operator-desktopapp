@@ -7,7 +7,6 @@ import userReducers from './userReducer';
 import propertyReducer from './propertyReducer';
 import orderReducers from './ordersReducer';
 import reviewsReducer from './reviewsReducer';
-// import tablesReducer from './tablesReducer';
 
 export default combineReducers({
   items: itemReducer,
@@ -16,6 +15,5 @@ export default combineReducers({
   property: propertyReducer,
   orders: orderReducers,
   toastr: toastrReducer,
-  reviews: reviewsReducer,
-  // tables: tablesReducer
+  reviews: reviewsReducer
 });

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Accordion, Card, Tabs, Tab, Button, ListGroup, Media } from 'react-bootstrap';
+import { Accordion, Card, Tabs, Tab, Button, ListGroup, Media, Image, Row, Col } from 'react-bootstrap';
 
 import { editOrderStatus } from '../redux/actions/orderActions'
 
@@ -21,25 +21,25 @@ class RenderOrders extends Component {
                 {
                     this.props.orders.map((order, i) => {
                         return (
-                            <Card key={i + 1}>
+                            <Card key={i + 1} className="OrderItem">
                                 <Accordion.Toggle as={Card.Header} eventKey={i + 1}>
                                     Order ID: {order._id}
                                 </Accordion.Toggle>
                                 <Accordion.Collapse eventKey={i + 1}>
                                     <Card.Body>
-                                        <div className="row">
-                                            <div className="col-8">
+                                        <Row>
+                                            <Col sm={7}>
                                                 <RenderOrderItems orderedItems={order.items} items={this.props.props.items.items} />
-                                            </div>
-                                            <div className="col-4">
+                                            </Col>
+                                            <Col>
                                                 <ul>
                                                     <li>Status: {order.status}</li>
                                                     <li>Table: {order.table.table_number}</li>
                                                     <li>Amount: {order.amount}</li>
                                                 </ul>
                                                 {this.props.nextState ? <Button onClick={() => this.handleClick(order._id, this.props.nextState)}>{this.props.nextState}</Button> : null}
-                                            </div>
-                                        </div>
+                                            </Col>
+                                        </Row>
                                     </Card.Body>
                                 </Accordion.Collapse>
                             </Card>
@@ -68,11 +68,12 @@ class RenderOrderItems extends Component {
                         return (
                             <ListGroup.Item key={i}>
                                 <Media>
-                                    <img
+                                    <Image
+                                        rounded
                                         width={64}
                                         height={64}
                                         className="mr-3"
-                                        src={order.imgUrl}                                        alt="Generic placeholder"
+                                        src={order.imgUrl} alt="item"
                                     />
                                     <Media.Body>
                                         <h5>{order.name}</h5>
@@ -91,7 +92,7 @@ class OrdersTab extends Component {
 
     render() {
         return (
-            <Tabs defaultActiveKey="Pending" id="uncontrolled-tab-example">
+            <Tabs defaultActiveKey="Pending" className="OrdersTab" >
                 <Tab eventKey="Pending" title="Pending">
                     <RenderOrders orders={this.props.orders.orders.pending.orders} nextState="Accept" props={this.props} />
                 </Tab>

@@ -12,7 +12,7 @@ import ReduxToastr from 'react-redux-toastr'
 
 const store = configureStore();
 
-axios.defaults.baseURL = 'http://waiterbot-api.us-east-1.elasticbeanstalk.com/api/';
+axios.defaults.baseURL = 'https://waiterbot-api.herokuapp.com/api';
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
