@@ -3,8 +3,10 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const path = require("path");
 const isDev = require("electron-is-dev");
+const http = require("./socketServer");
 
 let mainWindow;
+
 
 function createWindow() {
     mainWindow = new BrowserWindow({ width: 900, height: 680 });
@@ -24,6 +26,7 @@ app.on("ready", createWindow);
 app.on("window-all-closed", () => {
     if (process.platform !== "darwin") {
         app.quit();
+        http.close();
     }
 });
 

@@ -17,6 +17,8 @@
     "bootstrap": "^4.6.0",
     "cross-env": "^7.0.3",
     "electron-is-dev": "^2.0.0",
+    "express": "^4.17.1",
+    "http": "0.0.1-security",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
     "react-dom": "^17.0.1",
@@ -31,6 +33,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "socket.io": "^2.4.1",
     "socket.io-client": "^2.4.0",
     "web-vitals": "^0.2.4"
   },
@@ -41,7 +44,7 @@
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
     "build": "npm run react-build && npm run electron-build",
-    "start": "concurrently 'cross-env BROWSER=none npm run react-start' 'wait-on http://localhost:3000 && electron .'"
+    "start": "concurrently \"cross-env BROWSER=none\" \"npm run react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
     "extends": [
