@@ -7,6 +7,9 @@ import userReducers from './userReducer';
 import propertyReducer from './propertyReducer';
 import orderReducers from './ordersReducer';
 import reviewsReducer from './reviewsReducer';
+import mqttRecucer from './mqttReducer';
+
+
 
 export default combineReducers({
   items: itemReducer,
@@ -15,5 +18,6 @@ export default combineReducers({
   property: propertyReducer,
   orders: orderReducers,
   toastr: toastrReducer,
-  reviews: reviewsReducer
+  reviews: reviewsReducer,
+  mqtt: mqttRecucer
 });

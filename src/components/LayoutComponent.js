@@ -15,6 +15,7 @@ import Loading from './LoadingComponent';
 
 import { getPropertyInfo } from '../redux/actions/propertyActions';
 import { pushOrder } from '../redux/actions/orderActions';
+import { mqttConnectionInit } from '../redux/actions/mqttActions';
 
 const io = require("socket.io-client");
 const connectionUrl = "ws://waiterbot-api.herokuapp.com";
@@ -28,6 +29,9 @@ class Layout extends Component {
     }
 
     componentDidMount() {
+
+        this.props.dispatchMQTTConnectionInit();
+        
         const socket = io(connectionUrl, {
             // autoConnect : false,
             transports: ["polling"],
@@ -98,7 +102,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     dispatchGetPropertyInfo: () => dispatch(getPropertyInfo()),
-    dispatchPushOrder: (data) => dispatch(pushOrder(data))
+    dispatchPushOrder: (data) => dispatch(pushOrder(data)),
+    dispatchMQTTConnectionInit: () => dispatch(mqttConnectionInit())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

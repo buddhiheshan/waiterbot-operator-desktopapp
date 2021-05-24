@@ -7,8 +7,6 @@ import Layout from './components/LayoutComponent';
 
 import '../src/App.css';
 
-
-
 class App extends Component {
 
   render() {

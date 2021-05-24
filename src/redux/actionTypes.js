@@ -23,3 +23,6 @@ export const RESET_REVIEWS = 'RESET_REVIEWS';
 export const SET_TABLES = 'SET_TABLES';
 
 export const SET_ROBOTS = 'SET_ROBOTS';
+
+export const INIT_CONNECTION = 'INIT_CONNECTION';
+export const MQTT_CONNECTED = 'MQTT_CONNECTED';

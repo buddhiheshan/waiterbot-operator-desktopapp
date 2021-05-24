@@ -11,7 +11,8 @@ class RenderOrders extends Component {
             this.props.props.dispatchEditOrderStatus(orderID, "Preparing")
         }
         if (nextStatus === "Deploy Robot") {
-            this.props.props.dispatchEditOrderStatus(orderID, "Delivering")
+            this.props.props.dispatchEditOrderStatus(orderID, "Delivering");
+            console.log(this.props.props.mqtt.client.publish('waiterbot/robot1', 'deliver 2 3 left'));
         }
     }
 
@@ -117,7 +118,8 @@ class OrdersTab extends Component {
 const mapStateToProps = state => {
     return {
         orders: state.orders,
-        items: state.items
+        items: state.items,
+        mqtt: state.mqtt
     }
 }
 

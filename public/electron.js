@@ -3,7 +3,8 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const path = require("path");
 const isDev = require("electron-is-dev");
-const http = require("./socketServer");
+// const http = require("./socketServer");
+const {mqtt, mqtt_ws} = require("./mqttServer");
 
 let mainWindow;
 
@@ -26,7 +27,8 @@ app.on("ready", createWindow);
 app.on("window-all-closed", () => {
     if (process.platform !== "darwin") {
         app.quit();
-        http.close();
+        mqtt.close();
+        mqtt_ws.close();
     }
 });
 
