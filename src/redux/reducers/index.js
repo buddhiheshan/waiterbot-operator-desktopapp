@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import {reducer as toastrReducer} from 'react-redux-toastr'
+import { reducer as toastrReducer } from 'react-redux-toastr'
 
 import itemReducer from './itemsReducer'
 import robotsReducer from './robotsReducer';
@@ -8,6 +8,7 @@ import propertyReducer from './propertyReducer';
 import orderReducers from './ordersReducer';
 import reviewsReducer from './reviewsReducer';
 import mqttRecucer from './mqttReducer';
+import tablesReducer from './tablesReducer';
 
 
 
@@ -19,5 +20,6 @@ export default combineReducers({
   orders: orderReducers,
   toastr: toastrReducer,
   reviews: reviewsReducer,
-  mqtt: mqttRecucer
+  mqtt: mqttRecucer,
+  tables: tablesReducer
 });

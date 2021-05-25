@@ -1,4 +1,4 @@
-import { SET_PENDING_ORDERS, SET_PREPARING_ORDERS, SET_DELIVERED_ORDERS, SET_DELIVERING_ORDERS, SET_CANCELLED_ORDERS, CHANGE_ORDER_STATE, PUSH_ORDER } from '../actionTypes';
+import { SET_PENDING_ORDERS, SET_PREPARING_ORDERS, SET_DELIVERED_ORDERS, SET_DELIVERING_ORDERS, SET_CANCELLED_ORDERS, CHANGE_ORDER_STATE, PUSH_ORDER, SET_ROBOTID } from '../actionTypes';
 
 const initialState = {
     orders: {
@@ -124,22 +124,58 @@ export default function ordersReducer(state = initialState, action) {
                         }
                     }
 
+                case "Delivered":
+                    return {
+                        ...state,
+                        orders: {
+                            ...state.orders,
+                            delivered: {
+                                ...state.orders.delivered,
+                                orders: [
+                                    ...state.orders.delivered.orders,
+                                    action.payload.item
+                                ]
+                            },
+                            delivering: {
+                                ...state.orders.delivering,
+                                orders: state.orders.delivering.orders.filter(order => order._id !== action.payload.item._id)
+                            }
+                        }
+                    }
+
+
+
 
                 default:
                     return state;
             }
-        
-            case PUSH_ORDER:
-                return{
-                    ...state,
-                    orders: {
-                        ...state.orders,
-                        pending: {
-                            ...state.orders.pending,
-                            orders: [...state.orders.pending.orders, action.payload]
-                        }
+
+        case PUSH_ORDER:
+            return {
+                ...state,
+                orders: {
+                    ...state.orders,
+                    pending: {
+                        ...state.orders.pending,
+                        orders: [...state.orders.pending.orders, action.payload]
                     }
                 }
+            }
+
+        case SET_ROBOTID:
+            return {
+                ...state,
+                orders: {
+                    ...state.orders,
+                    preparing: {
+                        ...state.orders.preparing,
+                        orders: state.orders.preparing.orders.map(order => {
+                            if (order._id === action.payload.orderID) return { ...order, robot: action.payload.robotID }
+                            return order
+                        })
+                    }
+                }
+            }
 
         default:
             return state;

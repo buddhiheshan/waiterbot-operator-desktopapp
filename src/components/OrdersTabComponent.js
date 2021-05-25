@@ -2,17 +2,57 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Accordion, Card, Tabs, Tab, Button, ListGroup, Media, Image, Row, Col } from 'react-bootstrap';
 
-import { editOrderStatus } from '../redux/actions/orderActions'
+import { editOrderStatus, setRobotToOrder } from '../redux/actions/orderActions'
+import { getTables } from '../redux/actions/tableActions';
+import { toastr } from 'react-redux-toastr';
+import { editRobotStatus } from '../redux/actions/robotActions';
+
+
 
 class RenderOrders extends Component {
+
+
+    searchForRobot() {
+        const robots = this.props.props.robots.robots.filter(robot => robot.status === 'Idle')
+        return robots.length !== 0 ? robots[0]._id : null;
+    }
 
     handleClick(orderID, nextStatus) {
         if (nextStatus === "Accept") {
             this.props.props.dispatchEditOrderStatus(orderID, "Preparing")
         }
         if (nextStatus === "Deploy Robot") {
-            this.props.props.dispatchEditOrderStatus(orderID, "Delivering");
-            console.log(this.props.props.mqtt.client.publish('waiterbot/robot1', 'deliver 2 3 left'));
+            const pendingOrders = this.props.props.orders.orders.preparing.orders;
+            const order = pendingOrders.find(order => order._id === orderID);
+            if (!order) console.log(("Something went wrong with orders"));
+            let robotID;
+
+            console.log(order);
+            if (order.robot === null) {
+                robotID = this.searchForRobot()
+                if (!robotID) {
+                    toastr.warning('No robots available right now');
+                    console.log("No robots available");
+                    return;
+                }
+                this.props.props.dispatchSetRobotToOrder(order._id, robotID);
+                this.props.props.dispatchEditRobotStatus(robotID, "Assigned");
+                toastr.success('Robot Assigned');
+            }
+            else {
+                robotID = order.robot
+            }
+            console.log("order", order);
+            const tableID = order.table._id;
+            console.log("tableid in order", tableID);
+            const tables = this.props.props.tables.tables
+            console.log("all tables", tables);
+            const tableCount = tables.length;
+            const table = tables.find(table => table._id === tableID);
+            if (!table) console.log(("Something went wrong with table"));
+            const payload = `deliver ${table.junction} ${tableCount} ${table.turn_direction}`;
+
+            this.props.props.mqtt.client.publish(`waiterbot/${robotID}`, payload);
         }
     }
 
@@ -90,6 +130,11 @@ class RenderOrderItems extends Component {
 }
 
 class OrdersTab extends Component {
+    constructor(props) {
+        super(props);
+        this.props.dispatchGetTables(this.props.property.id);
+    }
+
 
     render() {
         return (
@@ -117,14 +162,20 @@ class OrdersTab extends Component {
 
 const mapStateToProps = state => {
     return {
+        property: state.property,
         orders: state.orders,
         items: state.items,
-        mqtt: state.mqtt
+        mqtt: state.mqtt,
+        robots: state.robots,
+        tables: state.tables
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    dispatchEditOrderStatus: (orderID, nextStatus) => dispatch(editOrderStatus(orderID, nextStatus))
+    dispatchEditOrderStatus: (orderID, nextStatus) => dispatch(editOrderStatus(orderID, nextStatus)),
+    dispatchGetTables: (propertyID) => dispatch(getTables(propertyID)),
+    dispatchSetRobotToOrder: (orderID, robotID) => dispatch(setRobotToOrder(orderID, robotID)),
+    dispatchEditRobotStatus: (robotID, newStatus) => dispatch(editRobotStatus(robotID, newStatus))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrdersTab);

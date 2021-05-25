@@ -1,4 +1,4 @@
-import { SET_ROBOTS } from '../actionTypes';
+import { SET_ROBOTS, CHANGE_ROBOT_STATE } from '../actionTypes';
 
 const initialState = {
     robots: [],
@@ -15,6 +15,15 @@ export default function robotsReducer(state = initialState, action) {
                 robots: action.payload,
                 isLoading: false
             };
+
+        case CHANGE_ROBOT_STATE:
+            return {
+                ...state,
+                robots: state.robots.map(robot => {
+                    if (robot._id === action.payload.robotID) return { ...robot, status: action.payload.newStatus }
+                    return robot
+                })
+            }
 
         default:
             return state;
